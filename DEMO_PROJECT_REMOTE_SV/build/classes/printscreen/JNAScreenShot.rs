@@ -1,0 +1,6 @@
+JNAScreenShot
+GDI32
+printscreen.GDI32
+User32
+printscreen.JNAScreenShot
+printscreen.User32

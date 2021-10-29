@@ -1,0 +1,2 @@
+https://www.fatalerrors.org/a/java-java-streamcorruptedexception-invalid-stream-header-efbfbdef.html
+https://stackoverflow.com/questions/68222388/what-is-the-meaning-of-invalid-stream-header-4a000000
