@@ -84,10 +84,8 @@ public class NewJFrame extends javax.swing.JFrame
   public NewJFrame() 
   {
     initComponents();
-    //FontAwesomeIcon fntIcon = new FontAwesomeIcon();
-    //fntIcon.setGlyphName("UNDO");
-    //jButton1.setI
-    //jButton1.setGraphic(fntIcon);
+        setLayout(null);
+
     
   }
   	
@@ -97,18 +95,22 @@ public class NewJFrame extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jButton4 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Server Menu");
-        setAlwaysOnTop(true);
+        setIconImages(null);
         setResizable(false);
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/remote2.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -124,51 +126,45 @@ public class NewJFrame extends javax.swing.JFrame
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/1037316.png"))); // NOI18N
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel3.setText("File Transfer");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel4.setText("Remote");
 
+        jLabel1.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(123, 123, 123)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 390, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jButton2))
+                        .addContainerGap(72, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jButton2))
-                .addContainerGap(72, Short.MAX_VALUE))
-            .addComponent(jScrollPane1)
+                        .addComponent(jLabel1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
+                .addGap(13, 13, 13)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,81 +182,26 @@ public class NewJFrame extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-  public  static class Read_data_B implements Runnable
-  {   
-    @Override
-    public void run()
-    {
-      try 
-      {
-        DatagramSocket d = new DatagramSocket(9878);
-        byte[] b = new byte[100];
-        DatagramPacket p = new DatagramPacket(b, b.length);
-        while(true)
-        {           
-          d.receive(p);
-          String s = new String( p.getData() );
-          s = s.substring(0, s.indexOf('#') );
-          String s2 = s.substring(6, s.length());
-          String s3[] = s2.split(",");
-          jTextArea1.append(s3[0]+" "+s3[1]+"\n");
-          Runtime.getRuntime().exec("cmd /c C:\\m\\mouse.exe moveTo "+s3[0]+"x"+s3[1]);
-          Runtime.getRuntime().exec("cmd /c C:\\m\\mouse.exe click");
-        }
-      }
-      catch (Exception e) 
-      {
-        JOptionPane.showMessageDialog(null,e.toString(),"หัวข้อ",JOptionPane.INFORMATION_MESSAGE );
-      } 
-    }
-  }
-  public  static class Read_data_A implements Runnable
-  {   
-    @Override
-    public void run()
-    {
-      while(true)
-      {
-        try 
-        {
-          Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
-          BufferedImage capture = new Robot().createScreenCapture(screenRect);   
-          
-          ByteArrayOutputStream os = new ByteArrayOutputStream();
-          ImageOutputStream ios = ImageIO.createImageOutputStream(os);          
-          JPEGImageWriteParam jpegParams = new JPEGImageWriteParam(null);
-          jpegParams.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-          jpegParams.setCompressionQuality(0.2f);
-          ImageWriter jpgWriter = ImageIO.getImageWritersByFormatName("jpg").next();
-          jpgWriter.setOutput(ios);
-          jpgWriter.write(null,new IIOImage(capture, null, null),jpegParams);
-          os.flush();
-       
-          byte[] b = os.toByteArray();
-          DatagramSocket clientSocket = new DatagramSocket();       
-          InetAddress IPAddress = InetAddress.getByName("192.168.1.45");
-          DatagramPacket packet = new DatagramPacket(b, b.length, IPAddress, 9876);
-          clientSocket.send(packet);
-          Thread.sleep(1000);
-        } 
-        catch (Exception e) 
-        {
-          JOptionPane.showMessageDialog(null,e.toString(),"หัวข้อ",JOptionPane.INFORMATION_MESSAGE );
-        }    
-      }
-    }
-  }
+ 
   
   private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     try 
     {
-     new NetworkScreenServer();   
+     //run NetworkScreenServer class to start Server which port to connect
+     
+      
+        try {
+            new NetworkScreenServer();   
+        } catch (Exception ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     } 
     catch (Exception e) {}
   }//GEN-LAST:event_jButton1ActionPerformed
 
   private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
    //File server call
+   //run NetworkScreenServer class to start Server which port to connect
         ServerFile s = new ServerFile();
         try {
             s.fileServer();
@@ -268,17 +209,6 @@ public class NewJFrame extends javax.swing.JFrame
             Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
   }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        //File server call
-        ServerFile s = new ServerFile();
-        try {
-            s.fileServer();
-        } catch (IOException ex) {
-            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButton4ActionPerformed
   
   public static void main(String args[]) 
   {
@@ -294,7 +224,7 @@ public class NewJFrame extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;

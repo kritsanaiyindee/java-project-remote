@@ -71,28 +71,31 @@ public class NetworkScreenServer extends JFrame {
 	private Vector<byte[]> imgvec = new Vector<>();
 
 	public NetworkScreenServer() {
+                //Set Title
 		setTitle("NetworkScreenServer");
+                //Set Exit program on close
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
 		setContentPane(mainPanel);
 		setSize(490, 160);
 		setVisible(true);
 		setResizable(false);
-
+                //Add Event to Remote Desktop
 		addKeyListener(new KeyAdapter() {
+                        //Event Type on Keyboard
 			@Override
 			public void keyTyped(KeyEvent e) {
 				System.out.println("type" + e.getKeyCode() + "  " + e.getKeyChar() + "  " + e.getID() + "  "
 						+ e.getModifiers() + "  " + e.getKeyLocation() + "  " + e.getExtendedKeyCode());
 			}
-
+                        //Event keyPressed on Keyboard
 			@Override
 			public void keyPressed(KeyEvent e) {
 				System.out.println("pressed" + e.getKeyCode() + "  " + e.getKeyChar() + "  " + e.getID() + "  "
 						+ e.getModifiers() + "  " + e.getKeyLocation() + "  " + e.getExtendedKeyCode());
 				super.keyPressed(e);
 			}
-
+                        //Event keyReleased on Keyboard
 			@Override
 			public void keyReleased(KeyEvent e) {
 				System.out.println("released" + e.getKeyCode() + "  " + e.getKeyChar() + "  " + e.getID() + "  "
@@ -102,10 +105,7 @@ public class NetworkScreenServer extends JFrame {
 						count = 0;
 						return;
 					}
-					// System.out.println(t.getLocale().toString() + " " +
-					// t.getLocale().getCountry() + " " +
-					// t.getLocale().getDisplayCountry());
-					System.out.println("ee");
+					System.out.println("keyReleased");
 					count = 1;
 					u32.keybd_event((byte) 0x15, (byte) 0, 0, 0);// ????ffDDDddSS
 					u32.keybd_event((byte) 0x15, (byte) 00, (byte) 0x0002, 0);// ????
@@ -118,7 +118,6 @@ public class NetworkScreenServer extends JFrame {
 
 	public interface User32jna extends Library {
 		User32jna INSTANCE = (User32jna) Native.load("user32.dll", User32jna.class);
-
 		// User32jna INSTANCE = (User32jna)
 		// Native.loadLibrary("user32.dll",User32jna.class);
 		public void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
