@@ -4,6 +4,8 @@
  */
 package print_network;
 import print_network.conn.MysqlCon;
+import java.sql.*;
+import javax.swing.JOptionPane;
 /**
  *
  * @author HT170305
@@ -15,6 +17,8 @@ public class ClientMain extends javax.swing.JFrame {
      */
     public ClientMain() {
         initComponents();
+        jButton1.setEnabled(false);
+        jButton2.setEnabled(false);
     }
 
     /**
@@ -173,8 +177,25 @@ public class ClientMain extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        
-        new MysqlCon();
+        try{  
+            Class.forName("com.mysql.jdbc.Driver");  
+            Connection con=DriverManager.getConnection(  
+            "jdbc:mysql://localhost:3306/remote_viewer","root","");  
+            //here sonoo is database name, root is username and password  
+            Statement stmt=con.createStatement();  
+            ResultSet rs=stmt.executeQuery("select * from tbl_user  where c_username='"+jTextField1.getText()+"'  and c_password='"+jPasswordField1.getText()+"' ");  
+            while(rs.next()){  
+                System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));  
+                
+                JOptionPane.showMessageDialog(null,"Already logged in! ");
+                jButton1.setEnabled(true);
+                jButton2.setEnabled(true);
+            }
+            con.close();  
+        }catch(Exception e){ 
+            JOptionPane.showMessageDialog(null,e.toString());
+        }  
+      //  new MysqlCon();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
