@@ -21,18 +21,26 @@ import java.util.Vector;
 
 
 public class NetworkScreenServer extends JFrame {
+        //parameter   port for Remote
 	private final static int SERVER_PORT = 9999;
+        //parameter   port for SERVER_CURSOR_PORT
 	private final static int SERVER_CURSOR_PORT = SERVER_PORT - 1;
+        //parameter   port for SERVER_KEBOARD_PORT
 	private final static int SERVER_KEBOARD_PORT = SERVER_PORT - 2;
 	private DataOutputStream dataOutputStream;
 	private ObjectOutputStream objectOutputStream;
 	private Image cursor;
-	private String myFont = "????";
+        //set FONT name
+	private String myFont = "tahoma";
+        //screen image parameter
 	private BufferedImage screenImage;
 	private Rectangle rect;
 	private MainPanel mainPanel = new MainPanel();
+        //parameter ServerSocket  for remote
 	private ServerSocket imageSeverSocket = null;
+        //parameter cursorServerSocket  for remote
 	private ServerSocket cursorServerSocket = null;
+        ///parameter keyboardServerSocket  for remote
 	private ServerSocket keyboardServerSocket = null;
 	private Socket imageSocket = null;
 	private Socket cursorSocket = null;
