@@ -1,8 +1,11 @@
 
 package print_network;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import print_network.FileEvent;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -12,17 +15,20 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.net.Socket;
+import java.nio.file.Files;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.apache.commons.io.IOUtils;
 
 public class uploadFileForm extends javax.swing.JFrame {
-static String ip="192.168.1.104";
+static String ip="localhost";
    
     public uploadFileForm(String ipInit) {
-        this.ip = "192.168.1.104";
+        this.ip = "localhost";
         initComponents();
     }
 
@@ -72,9 +78,47 @@ static String ip="192.168.1.104";
 
 	/* send file from client to server */
     public void sendFile() {
-        fileEvent = new FileEvent();
+        
         String fileName = fname.substring(fname.lastIndexOf("/") + 1, fname.length());
         String path = fname.substring(0, fname.lastIndexOf("/") + 1);
+        
+    try (Socket socket = new Socket("localhost", 9876)) {
+        File file = new File(path, fileName);
+        ObjectOutputStream out=new ObjectOutputStream(socket.getOutputStream());
+        FileContainer fc=new FileContainer();
+        fc.setFilename(fileName);
+        byte[] fileContent = Files.readAllBytes(file.toPath());
+        long size = Files.size(file.toPath());
+        fc.setData(fileContent);
+        fc.setSize(size);
+       // out.writeObject(fc);
+        
+/*
+        OutputStream os = socket.getOutputStream();
+        BufferedOutputStream bos = new BufferedOutputStream(os);
+        try (DataOutputStream dos = new DataOutputStream(bos)) {                
+            FileInputStream fis = new FileInputStream(file);
+            try (BufferedInputStream bis = new BufferedInputStream(fis)) {
+                dos.write(IOUtils.toByteArray(bis));
+            }
+        }
+      */
+         //ObjectOutputStream outStream = new ObjectOutputStream(socket.getOutputStream());
+         out.writeObject(fc);
+         out.close();
+        
+         //socket.close();
+
+        //socket.close();
+    }
+    catch(Exception e) {
+        e.printStackTrace();
+    }
+    
+    
+    /*
+        fileEvent = new FileEvent();
+        
         fileEvent.setDestinationDirectory(destinationPath);
         fileEvent.setFilename(fileName);
         fileEvent.setSourceDirectory(fname);
@@ -112,16 +156,16 @@ static String ip="192.168.1.104";
         } catch (IOException ex) {
             Logger.getLogger(uploadFileForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+*/
     }
 
     private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
         try {
       
           String serverName = ip; //loop back ip   
-            this.setBounds(550, 150, 800, 700);
-            this.setResizable(false);
-            Socket sock = new Socket(serverName, 1234);
+            //this.setBounds(550, 150, 800, 700);
+           // this.setResizable(false);
+           // Socket sock = new Socket(serverName, 9876);
             Scanner input = new Scanner(System.in);
             System.out.print("Enter the file name : ");
             String keyRead = jFileChooser1.getSelectedFile().getAbsolutePath();
@@ -131,16 +175,16 @@ static String ip="192.168.1.104";
             System.out.println("Path: " + keyRead);
           
             fname = keyRead;
-            OutputStream ostream = null;
-            ostream = sock.getOutputStream();
-            PrintWriter pwrite = new PrintWriter(ostream, true);
-            pwrite.println("");
-            outputStream = new ObjectOutputStream(sock.getOutputStream());
+           // OutputStream ostream = null;
+          //  ostream = sock.getOutputStream();
+         //   PrintWriter pwrite = new PrintWriter(ostream, true);
+         //   pwrite.println("");
+         //   outputStream = new ObjectOutputStream(sock.getOutputStream());
             this.sendFile();
-            sock.close();
+           // sock.close();
 
 
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(uploadFileForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jFileChooser1ActionPerformed
@@ -181,3 +225,4 @@ static String ip="192.168.1.104";
     private javax.swing.JFileChooser jFileChooser1;
     // End of variables declaration//GEN-END:variables
 }
+

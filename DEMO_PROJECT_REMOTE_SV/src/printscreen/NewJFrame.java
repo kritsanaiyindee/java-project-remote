@@ -200,14 +200,14 @@ public class NewJFrame extends javax.swing.JFrame
   }//GEN-LAST:event_jButton1ActionPerformed
 
   private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-   //File server call
-   //run NetworkScreenServer class to start Server which port to connect
-        ServerFile s = new ServerFile();
-        try {
-            s.fileServer();
-        } catch (IOException ex) {
-            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+      //new FileServerStart();
+      try {
+            new FileServerStart().setVisible(true);
+      } catch (Exception ex) {
+            Logger.getLogger(FileServerStart.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      //  ServerFile s = new ServerFile();
+      //   s.fileServer();
   }//GEN-LAST:event_jButton2ActionPerformed
   
   public static void main(String args[]) 

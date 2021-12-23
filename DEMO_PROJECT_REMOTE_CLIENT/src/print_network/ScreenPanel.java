@@ -14,7 +14,6 @@ import com.sun.jna.platform.win32.WinUser.KBDLLHOOKSTRUCT;
 import com.sun.jna.platform.win32.WinUser.LowLevelKeyboardProc;
 import com.sun.jna.platform.win32.WinUser.MSG;
 import org.xerial.snappy.Snappy;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

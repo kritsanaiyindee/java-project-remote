@@ -4,7 +4,7 @@ import print_network.uploadFileForm;
 import print_network.downloadfileform;
 public class clientfileform extends javax.swing.JFrame {
 /* ip address */
-static String ip="";
+static String ip="192.168.95.42";
  
     public clientfileform(String ip) {
         this.ip = ip;
@@ -19,7 +19,6 @@ static String ip="";
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -34,6 +33,7 @@ static String ip="";
         jLabel2.setText("Select if you want to upload or download a file ");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(122, 176, 542, 32);
+        jLabel2.getAccessibleContext().setAccessibleName("Select if you want to upload a file ");
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel3.setText("from server's system");
@@ -51,18 +51,6 @@ static String ip="";
         });
         getContentPane().add(jButton1);
         jButton1.setBounds(272, 290, 237, 41);
-
-        jButton2.setBackground(new java.awt.Color(0, 0, 0));
-        jButton2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Download");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton2);
-        jButton2.setBounds(272, 356, 237, 41);
         getContentPane().add(jLabel4);
         jLabel4.setBounds(0, 0, 800, 470);
 
@@ -78,16 +66,6 @@ static String ip="";
 	u.setBounds(550, 150, 700, 300);
         u.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-
-	/* call downloadfileform on button action */
-        this.setVisible(false);
-        downloadfileform d = new downloadfileform(ip);
-	d.setBounds(550, 150, 700, 300);
-        d.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -123,7 +101,6 @@ static String ip="";
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
