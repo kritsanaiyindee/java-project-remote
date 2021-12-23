@@ -26,9 +26,10 @@ public class NetworkScreenClient extends JFrame {
 	private final static int SERVER_CURSOR_PORT = SERVER_PORT-1;
 	private final static int SERVER_KEYBOARD_PORT = SERVER_PORT-2;
 	ScreenPanel screenPanel;
-	public NetworkScreenClient() {
+        public String ipaddr;
+	public NetworkScreenClient(String ipaddr) {
             //ClassPathResource resource = new ClassPathResource("logo.png");
-     
+                this.ipaddr=ipaddr;
 		exitURL = getClass().getClassLoader().getResource("resources/exit.png"); 
 		minimizeURL = getClass().getClassLoader().getResource("resources/minimize.png"); 
 
@@ -110,7 +111,7 @@ jbar.add(menu);
 			exitBtn.setFont(new Font(myFont, Font.PLAIN, 20));
 			addressField.setForeground(Color.LIGHT_GRAY);
 			
-			addressField.setText("192.168.95.42");
+			addressField.setText(ipaddr);
 			addressField.setCaretPosition(0);
 			addressField.setMargin(new Insets(1, 15, 1, 15));
 			addressField.addMouseListener(new MouseAdapter() {
@@ -216,6 +217,6 @@ jbar.add(menu);
 		}		
 	}
 	public static void main(String[] args) {
-		new NetworkScreenClient();
+		new NetworkScreenClient("127.0.0.1");
 	}
 }
